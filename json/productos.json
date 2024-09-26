@@ -1,0 +1,21 @@
+[
+    {
+      "image": "image1.jpg",
+      "title": "Card Title 1",
+      "text": "This is the description for card 1.",
+      "link": "https://example1.com"
+    },
+    {
+      "image": "image2.jpg",
+      "title": "Card Title 2",
+      "text": "This is the description for card 2.",
+      "link": "https://example2.com"
+    },
+    {
+      "image": "image3.jpg",
+      "title": "Card Title 3",
+      "text": "This is the description for card 3.",
+      "link": "https://example3.com"
+    }
+  ]
+  
