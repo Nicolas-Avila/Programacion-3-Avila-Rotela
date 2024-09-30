@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    fetch('/tp/json/productos.json')
+    fetch('../json/productos.json')
         .then(response => response.json())
         .then(data => {
             let productosHTML = '';

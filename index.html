@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentito</title>
+    <link rel="icon" href="./img/icons8-favicon-64.png" type="image/x-icon" >
+    <title>Sitio de compras de electrónica</title>
 </head>
 <body>
 
     <form>
         <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Ingrese su nombre"  maxlength="12">
+        <div id="divDePass" style="display:none">
+            <input type="password" id="passwordUsuario" maxlength="12">
+            <input type="text" id="passError" style="display: none;">
+        </div>
     </form>
-    <a href="/tp/html/principal.html"><button id="ingresar">Ingresar</button></a>
+    <!-- <a href="./html/principal.html"><button id="ingresar">Ingresar</button></a> -->
+    <button id="ingresar" onclick="EvaluarUsuario()">Ingresar</button>
     <script src="./js/obtencionUsuario.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 </html>
