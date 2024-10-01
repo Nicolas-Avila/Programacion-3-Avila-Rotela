@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                     </div>`;
             });
-            document.getElementById("contenedor-productos").innerHTML = productosHTML;
+            //document.getElementById("contenedor-productos").innerHTML = productosHTML;
+            document.getElementById("contenedor-productos").insertAdjacentHTML('beforeend',productosHTML);
         })
 });
