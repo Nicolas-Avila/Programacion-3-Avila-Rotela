@@ -5,6 +5,7 @@ function EvaluarUsuario()
     const passUsuario = document.getElementById("passwordUsuario");
     const mensaje = document.getElementById("passError");
 
+    /*
     if(nombreDelUsuario.value === "Admin")
     {
         divDePassword.style.display = "block";
@@ -33,6 +34,7 @@ function EvaluarUsuario()
     }
     else
     {
-        window.location.href = "./html/principal.html";
-    }
+        window.location.href = "../html/principal.html";
+    }*/
+    window.location.href = "./html/principal.html";
 }

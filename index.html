@@ -4,20 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./img/icons8-favicon-64.png" type="image/x-icon" >
+    <link rel="stylesheet" href="./css/index.css">
     <title>Sitio de compras de electrónica</title>
 </head>
 <body>
 
-    <form>
-        <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Ingrese su nombre"  maxlength="12">
-        <div id="divDePass" style="display:none">
-            <input type="password" id="passwordUsuario" maxlength="12">
-            <input type="text" id="passError" style="display: none;">
+  
+    <div class="container"> 
+        <div class="row"> 
+            <div class="col-md-6"> 
+                <div class="card"> 
+                    <div class="box">
+
+                        <h1>Login</h1> 
+                        <p class="text-muted"> Please enter your login</p> 
+    
+                            <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Ingrese su nombre"  maxlength="12">
+                           
+                            <button id="ingresar" onclick="EvaluarUsuario()">Ingresar</button>
+                            <br/>
+                            <button id="Ingreso de Administrador" onclick="EvaluarUsuario()">Ingreso de Administrador</button>
+                            
+                    </div>
+
+                </div>
+            </div>
         </div>
-    </form>
+
+
+
+
     <!-- <a href="./html/principal.html"><button id="ingresar">Ingresar</button></a> -->
-    <button id="ingresar" onclick="EvaluarUsuario()">Ingresar</button>
-    <script src="./js/obtencionUsuario.js"></script>
-    <script src="./js/index.js"></script>
+    <!-- <button id="ingresar" onclick="EvaluarUsuario()">Ingresar</button> -->
 </body>
+<script src="./js/obtencionUsuario.js"></script>
+<script src="./js/index.js"></script>
 </html>
