@@ -11,28 +11,82 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid d-flex">
+
+
+    <nav class="navbar bg-light fixed-top mb-5">
+        <div class="container-fluid">
             <a class="navbar-brand" href="#">Bienvenido <span id="nombreUsuarioSpan"></span></a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                </ul>
+            <button class="navbar-toggler d-flex align-items-center" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-cart3 me-2" viewBox="0 0 16 16">
+                    <path
+                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                </svg>
+                <span>Carrito</span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Carrito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body" id="carrito">
+                    <!-- Carrito idea -->
+                </div>
             </div>
         </div>
     </nav>
 
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-sm-8 titloProducto">Producto X</div>
-            <div class="col-sm-4 titloProducto">Nose</div>
+    <!--Modal-->
+    <div class="modal fade" id="compraModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Finalizar compra.</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <h2 class="modal-title fs-5">Metodo de pago.</h2>
+                        <div class="mb-3">
+                            <label for="numero-tarjeta" class="col-form-label">Numero de la tajeta</label>
+                            <input type="text" class="form-control" id="numero-tarjeta" required>
+
+                            <label for="fecha-caducidad" class="col-form-label">Fecha de caducidad</label>
+                            <input type="date" class="form-control" id="fecha-caducidad" required>
+
+                            <label for="codigo-seguridad" class="col-form-label">Codigo de seguridad</label>
+                            <input type="number" class="form-control" id="codigo-seguridad" required>
+                        </div>
+                        <h2 class="modal-title fs-5">Datos de facturacion</h2>
+                        <div class="mb-3">
+                            <label for="nombre" class="col-form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" required>
+
+                            <label for="Apellido" class="col-form-label">Apellido</label>
+                            <input type="text" class="form-control" id="Apellido" required>
+
+                            <label for="dni" class="col-form-label">DNI</label>
+                            <input type="number" class="form-control" id="dni" required>
+
+                            <label for="telefono" class="col-form-label">Telefono</label>
+                            <input type="number" class="form-control" id="telefono">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continuar comprando</button>
+                    <a href="factura.html" class="btn btn-secondary" role="button">Finalizar compra</a>
+                </div>
+            </div>
         </div>
-        <div class="row m-3 justify-content-center d-flex" id="contenedor-productos">
+    </div>
+
+    <!--Productos-->
+    <div class="container text-center">
+
+        <div class="row m-3 mt-5 justify-content-center d-flex" id="contenedor-productos">
 
         </div>
     </div>
