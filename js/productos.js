@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     const imgSrc = this.getAttribute('data-img');
 
                     carrito.push({ nombre, precio, imgSrc });
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
                     mostrarCarrito();
                 });
             });
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //Muestrar los productos del carrito y agregar botón para abrir el modal
     function mostrarCarrito() {
         const carritoDiv = document.getElementById("carrito");
+        carritoDiv.innerHTML = '';
         carrito.forEach(item => {
             carritoDiv.insertAdjacentHTML('beforeend', `
                 <div class="d-flex align-items-center mb-2">
@@ -50,4 +52,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#compraModal">Finalizar compra</button>
             </div>`);
     }
+
+    function datosUsuario() {
+        console.log("FAISFAS")
+        document.getElementById('formularioPago').addEventListener('submit', function (event) {
+            event.preventDefault(); // Evita que el formulario se envíe
+
+            // Captura los valores del formulario
+            const nombre = document.getElementById('nombre').value;
+            const apellido = document.getElementById('Apellido').value;
+            const dni = document.getElementById('dni').value;
+            const telefono = document.getElementById('telefono').value;
+            const numeroTarjeta = document.getElementById('numero-tarjeta').value;
+            const fechaCaducidad = document.getElementById('fecha-caducidad').value;
+            const codigoSeguridad = document.getElementById('codigo-seguridad').value;
+
+            // Almacena los valores en localStorage
+            localStorage.setItem('nombre', nombre);
+            localStorage.setItem('apellido', apellido);
+            localStorage.setItem('dni', dni);
+            localStorage.setItem('telefono', telefono);
+            localStorage.setItem('numeroTarjeta', numeroTarjeta);
+            localStorage.setItem('fechaCaducidad', fechaCaducidad);
+            localStorage.setItem('codigoSeguridad', codigoSeguridad);
+
+            // Redirige a la página de factura o haz lo que necesites
+            window.location.href = "factura.html";
+        });
+    }
+    datosUsuario();
+
+
 });
