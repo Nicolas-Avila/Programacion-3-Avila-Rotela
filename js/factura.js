@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('apellido').textContent = apellido;
         document.getElementById('dni').textContent = dni;
         document.getElementById('telefono').textContent = telefono;
-
+        
     }
     datosUsuario();
 });
