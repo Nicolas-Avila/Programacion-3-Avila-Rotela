@@ -11,15 +11,18 @@ body {
 }
 
 .box {
-    width: 500px;
+    width: 80vw; /* El ancho será el 80% del ancho de la ventana del navegador */
+    max-width: 500px; /* Limita el ancho máximo a 500 píxeles */
+    min-width: 300px;
     padding: 40px;
-    position: absolute;
-    top: 20%;
-    left: 25%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background: #191919;
     text-align: center;
     transition: 0.25s;
-    margin-top: 100px
+    border-radius: 15px; /* Ajusta el valor según el redondeo que desees */
 }
 
 .box input[type="text"],
@@ -42,6 +45,14 @@ body {
     color: white;
     text-transform: uppercase;
     font-weight: 500
+}
+
+
+
+.box p
+{
+    color: white;
+    font-weight: 100
 }
 
 .box input[type="text"]:focus,
@@ -93,6 +104,7 @@ body {
     transition: 0.25s;
     cursor: pointer  
 }
+
 
 
 .forgot {
