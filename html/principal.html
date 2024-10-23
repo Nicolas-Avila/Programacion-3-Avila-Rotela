@@ -13,10 +13,10 @@
 <body>
 
 
-    <nav class="navbar bg-light fixed-top mb-5">
+    <nav class="navbar fixed-top mb-5">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Bienvenido <span id="nombreUsuarioSpan"></span></a>
-            <button class="navbar-toggler d-flex align-items-center" type="button" data-bs-toggle="offcanvas"
+            <button class="navbar-toggler compra d-flex align-items-center" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                     class="bi bi-cart3 me-2" viewBox="0 0 16 16">
@@ -25,19 +25,18 @@
                 </svg>
                 <span>Carrito</span>
             </button>
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Carrito</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body" id="carrito">
-                    <!-- Carrito idea
-                     https://coolors.co/bad1cd-f2d1c9-e086d3-8332ac-462749 -->
+                    <!-- Carrito idea -->
                 </div>
             </div>
         </div>
     </nav>
+    
 
     <!--Modal-->
     <div class="modal fade" id="compraModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
