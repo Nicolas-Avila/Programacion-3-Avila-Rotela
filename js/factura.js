@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const productosCarritoDiv = document.getElementById("productos-carrito");
     let total = 0;
 
-    // Mostrar los productos del carrito con su cantidad y calcular el total
     carrito.forEach(item => {
         const subtotal = parseInt(item.precio) * item.cantidad;
         total += subtotal;
@@ -14,14 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
         `);
     });
 
-    // Mostrar el total
     productosCarritoDiv.insertAdjacentHTML('beforeend', `
         <div class="total">
             <strong>Total: $${total}</strong>
         </div>
     `);
 
-    // Mostrar los datos del usuario en la factura
     function datosUsuario() {
         const nombre = localStorage.getItem('nombre');
         const apellido = localStorage.getItem('apellido');

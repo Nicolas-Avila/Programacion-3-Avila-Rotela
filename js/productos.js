@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {     
+document.addEventListener("DOMContentLoaded", function () {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
     fetch('../json/productos.json')
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                     </div>`;
             });
-            document.getElementById("contenedor-productos").insertAdjacentHTML('beforeend', productosHTML);             
+            document.getElementById("contenedor-productos").insertAdjacentHTML('beforeend', productosHTML);
 
             document.querySelectorAll('.btn-primary').forEach(boton => {
                 boton.addEventListener('click', function (event) {
@@ -29,9 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     const precio = this.getAttribute('data-precio');
                     const imgSrc = this.getAttribute('data-img');
 
-                    // Verificar si el producto ya está en el carrito
                     const productoEnCarrito = carrito.find(item => item.nombre === nombre);
-                    
+
                     if (productoEnCarrito) {
                         productoEnCarrito.cantidad += 1;
                     } else {
@@ -55,6 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="d-flex align-items-center mb-2">
                     <img src="${item.imgSrc}" alt="${item.nombre}" style="width: 80px; height: auto;" class="me-2">
                     <span>${item.nombre}: $${item.precio} (Unidades: ${item.cantidad})</span>
+                    <button class="ms-auto btn btn-link p-0" id="agregar-${index}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0M8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5z"/>
+                        </svg>
+                    </button>
                     <button class="ms-auto btn btn-link p-0" id="basura-${index}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                             <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
@@ -63,20 +67,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `);
 
-            // Funcionalidad para eliminar un producto
+            // elimina un producto
             document.getElementById(`basura-${index}`).addEventListener('click', function () {
                 if (item.cantidad > 1) {
                     item.cantidad -= 1;
                 } else {
                     carrito.splice(index, 1);
                 }
-
                 localStorage.setItem('carrito', JSON.stringify(carrito));
                 mostrarCarrito();
             });
+            // agregar en el carrito
+            document.getElementById(`agregar-${index}`).addEventListener('click', function () {
+                item.cantidad += 1
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                mostrarCarrito();
+            })
+
+
         });
 
-        // Botón para abrir el modal de compra si hay productos en el carrito
+        // boton modal del carrito
         if (carrito.length > 0) {
             carritoDiv.insertAdjacentHTML('beforeend', `
                 <div class="mt-3">
@@ -110,5 +121,5 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    datosUsuario(); 
+    datosUsuario();
 });

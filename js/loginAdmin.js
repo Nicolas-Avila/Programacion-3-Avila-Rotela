@@ -1,8 +1,8 @@
 function EvaluarAdmin()
 {
     // sería buena idea crear una página de gestión de usuarios y pass para cuando se olvide
-    const usuario = "Admin";
-    const password = "123Admin";
+    const usuario = "admin";
+    const password = "123";
 
     const nombreHtml = document.getElementById("nombreUsuario");
     const passHtml = document.getElementById("passUsuario");

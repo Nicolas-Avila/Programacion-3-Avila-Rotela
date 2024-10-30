@@ -1,42 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./img/icons8-favicon-64.png" type="image/x-icon" >
+    <link rel="icon" href="./img/icons8-favicon-64.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/index.css">
     <title>Sitio de compras de electrónica</title>
 </head>
+
 <body>
-
-  
-    <div class="container"> 
-        <div class="row"> 
-            <div class="col-md-6"> 
-                <div class="card"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
                     <div class="box">
-
-                        <h1>Login</h1> 
-                        <p> Ingrese su usuario </p> 
-    
-                            <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Ingrese su nombre" autocomplete="username"  maxlength="12">
-                           
-                            <button id="ingresar" onclick="EvaluarUsuario()">Ingresar</button>
-                            <br/>
-                            <button id="Ingreso de Administrador" onclick="EvaluarAdmin()">Ingreso de Administrador</button>
-                            
+                        <h1>Login</h1>
+                        <p> Ingrese su usuario </p>
+                        <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Ingrese su nombre"
+                            autocomplete="username" maxlength="12">
+                        <button id="ingresar" onclick="EvaluarUsuario()">Ingresar</button>
+                        <br/>
+                        <button id="Ingreso de Administrador" onclick="EvaluarAdmin()">Ingreso de Administrador</button>
                     </div>
-
                 </div>
             </div>
         </div>
-
-
-
-
-    <!-- <a href="./html/principal.html"><button id="ingresar">Ingresar</button></a> -->
-    <!-- <button id="ingresar" onclick="EvaluarUsuario()">Ingresar</button> -->
 </body>
 <script src="./js/obtencionUsuario.js"></script>
 <script src="./js/index.js"></script>
+
 </html>
