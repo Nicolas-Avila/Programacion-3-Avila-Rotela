@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="ticket">
+    <div class="ticket" id="factura">
         <h2 class="text-center">Factura</h2>
         <div class="mb-4">
             <h5>Datos de facturación</h5>
@@ -23,13 +23,16 @@
         <h3 class="mt-1">Detalle de la compra</h3>
         <div id="productos-carrito"></div>
         <div class="total mt-3" id="total"></div>
-        
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <center>
+        <button id="boton" onclick="guardar()" class="btn btn-success">
+            Botón mágico
+        </button>
+    </center>
+    <script src="../node_modules/jspdf/dist/jspdf.umd.js"></script>
     <script src="../js/factura.js"></script>
+    <script src="../node_modules/html2canvas/dist/html2canvas.js"></script>
+
 </body>
 
 </html>

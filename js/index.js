@@ -1,4 +1,3 @@
-
 function EvaluarAdmin() {
     window.location.href = "./html/loginAdmin.html";
 }

@@ -6,11 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
     carrito.forEach(item => {
         const subtotal = parseInt(item.precio) * item.cantidad;
         total += subtotal;
-        productosCarritoDiv.insertAdjacentHTML('beforeend', `
-            <div class="producto">
-                <span>${item.nombre} (x${item.cantidad}): $${subtotal}</span>
-            </div>            
-        `);
+        for (let i = 0; i < item.cantidad; i++) {
+            productosCarritoDiv.insertAdjacentHTML('beforeend', `
+                <div class="producto">
+                    <span>${item.nombre}: $${item.precio}</span>
+                </div>            
+            `);
+        }
     });
 
     productosCarritoDiv.insertAdjacentHTML('beforeend', `
@@ -33,3 +35,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     datosUsuario();
 });
+
+const { jsPDF } = window.jspdf;
+
+function guardar() {
+    const doc = new jsPDF();
+    doc.html(document.getElementById("factura"), {
+        callback: function (doc) {
+            doc.save("Factura.pdf");
+        },
+        x:10,
+        y:10,
+        scale: 0.05
+    });
+}
