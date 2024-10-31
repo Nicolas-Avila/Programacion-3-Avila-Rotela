@@ -21,3 +21,10 @@ document.addEventListener("DOMContentLoaded", function() {
         nombreUsuarioSpan.textContent = nombreUsuario ? nombreUsuario : "Invitado";
     }
 });
+function EvaluarAdmin() {
+    window.location.href = "./html/loginAdmin.html";
+}
+
+function EvaluarUsuario() {
+    window.location.href = "./html/principal.html";
+}
