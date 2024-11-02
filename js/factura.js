@@ -40,12 +40,17 @@ const { jsPDF } = window.jspdf;
 
 function guardar() {
     const doc = new jsPDF();
-    doc.html(document.getElementById("factura"), {
-        callback: function (doc) {
-            doc.save("Factura.pdf");
-        },
-        x:10,
-        y:10,
-        scale: 0.05
+    const elementoFactura = document.getElementById("factura");
+
+    html2canvas(elementoFactura, { scale: 2 }).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const imgWidth = 180; // Ancho en mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        doc.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+        doc.save("Factura.pdf");
     });
 }
+
+
+

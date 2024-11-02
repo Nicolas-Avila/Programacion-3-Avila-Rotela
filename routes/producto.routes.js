@@ -1,31 +1,34 @@
 const express = require("express");
 const router = express.Router();
-const Producto = require("../model/producto.js");
+const Producto = require("../entity/producto.entity.js"); // Asegúrate de que el path es correcto
 
 // Ruta: localhost:3000/productos/
 router.get("/", (req, res) => {
     res.send("Estoy en el router de productos");
 });
 
-router.post("/", (req, res) => {
-    // Tomar los datos del body
-    const nombreProducto = req.body.nombreProducto;
-    const descripcionProducto = req.body.descripcionProducto;
-    const imgSrc = req.body.imgSrc;
-    const precioProducto = req.body.precioProducto;
+router.post("/", async (req, res) => {
+    try {
+        // Tomar los datos del body
+        const { nombreProducto, descripcionProducto, imgSrc, precioProducto } = req.body;
 
-    // Crear un producto
-    const producto = new Producto();
-    producto.nombreProducto = nombreProducto;
-    producto.descripcionProducto = descripcionProducto;
-    producto.imgSrc = imgSrc;
-    producto.precioProducto = precioProducto;
+        // Validación del precio
+        if (precioProducto <= 0) {
+            return res.status(400).send({ error: true, message: "El precio debe ser mayor a 0" });
+        }
 
-    // Validación del precio
-    if (precioProducto <= 0) {
-        res.status(400).send({ error: true, message: "El precio debe ser mayor a 0" });
-    } else {
-        res.status(200).send(producto); // Enviar el producto directamente
+        // Crear el producto en la base de datos
+        const nuevoProducto = await Producto.create({
+            nombreProducto,
+            descripcionProducto,
+            imgSrc,
+            precioProducto,
+        });
+
+        res.status(201).json(nuevoProducto); // Devolver el producto creado
+    } catch (error) {
+        console.error("Error al crear el producto:", error);
+        res.status(500).json({ error: "Error al crear el producto" });
     }
 });
 

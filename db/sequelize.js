@@ -6,13 +6,10 @@ const sequelize = new Sequelize(
   process.env.MYSQL_USER,
   process.env.MYSQL_PASSWORD,
   {
-    host: process.env.MYSQL_HOST,
     dialect: "mysql",
+    host: process.env.MYSQL_HOST,
     port: process.env.MYSQL_PORT,
-    dialectOptions: {
-      useUTC: false,
-    },
-    timezone: "America/Argentina/Buenos_Aires",
+    logging: console.log,
   }
 );
 
