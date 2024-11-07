@@ -25,6 +25,11 @@ const ProductoSequelize = sequelize.define(
             type: DataTypes.FLOAT,
             allowNull: false,
         },
+        eliminado: {
+            defaultValue: false,
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
     },
     {
         timestamps: true,

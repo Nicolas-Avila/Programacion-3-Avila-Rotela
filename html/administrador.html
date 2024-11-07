@@ -98,9 +98,25 @@
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-alta">Alta</button>
+
+        <form id="productForm">
+            <h3>Crear Nuevo Producto</h3>
+            <label for="nombreProducto">Nombre del Producto:</label>
+            <input type="text" id="nombreProducto" required>
+            
+            <label for="descripcionProducto">Descripción:</label>
+            <input type="text" id="descripcionProducto" required>
+            
+            <label for="imgSrc">URL de la Imagen:</label>
+            <input type="text" id="imgSrc" required>
+            
+            <label for="precioProducto">Precio:</label>
+            <input type="number" id="precioProducto" required>
+    
+            <button type="submit">Crear Producto</button>
+        </form>
     </section>
 
-
+<script src="../js/crudProducto.js"></script>
 </body>
 </html>
