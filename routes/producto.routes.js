@@ -40,12 +40,15 @@ router.get("/mostrar", async (req, res) => {
     res.send(resultado);
 });
 //muestra un producto que no este eliminado logicamente
-// router.get("/mostrar/:id", async (req, res) => {
-//     const resultado = await Producto.findOne({
-//         where: { id: req.params.id, eliminado: false },
-//     });
-//     res.send(resultado);
-// });
+router.get("/todo", async (req, res) => {
+    try {
+        const resultado = await Producto.findAll();
+        res.send(resultado);
+    } catch (error) {
+        console.error("Error al obtener productos:", error);
+        res.status(500).send({ error: "Error al obtener productos" });
+    }
+});
 
 //actualiza un producto
 router.put("/actualizar/:id", async (req, res) => {

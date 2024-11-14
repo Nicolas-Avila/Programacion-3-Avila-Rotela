@@ -11,11 +11,9 @@ body {
     0% {
         background-position: 0% 50%;
     }
-
     50% {
         background-position: 100% 50%;
     }
-
     100% {
         background-position: 0% 50%;
     }
@@ -44,8 +42,16 @@ p {
     flex-direction: column;
 }
 
-input[type="text"] {
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 300px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -54,12 +60,114 @@ input[type="text"] {
     outline: none;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
     border-color: #00fffb;
     box-shadow: 0 0 5px rgba(0, 255, 251, 0.5);
 }
 
-.btncompa {
+#ingresar {
+    --border-color: linear-gradient(-45deg, #ff0000, #7e03aa, #00fffb);
+    --border-width: 0.125em;
+    --curve-size: 0.5em;
+    --blur: 30px;
+    --bg: #080312;
+    --color: #afffff;
+    color: var(--color);
+    cursor: pointer;
+    position: relative;
+    display: inline-grid;
+    place-content: center;
+    padding: 0.5em 1.5em;
+    font-size: 17px;
+    border: 0;
+    text-transform: uppercase;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
+    clip-path: polygon(
+            0% var(--curve-size),
+            var(--curve-size) 0,
+            100% 0,
+            100% calc(100% - var(--curve-size)),
+            calc(100% - var(--curve-size)) 100%,
+            0 100%);
+    transition: color 250ms;
+    margin-top: 20px;
+}
+
+#ingresar::after,
+#ingresar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+#ingresar::before {
+    background: var(--border-color);
+    background-size: 300% 300%;
+    animation: move-bg7234 5s ease infinite;
+    z-index: -2;
+}
+
+@keyframes move-bg7234 {
+    0% {
+        background-position: 31% 0%;
+    }
+    50% {
+        background-position: 70% 100%;
+    }
+    100% {
+        background-position: 31% 0%;
+    }
+}
+
+#ingresar::after {
+    background: var(--bg);
+    z-index: -1;
+    clip-path: polygon(
+            var(--border-width) calc(var(--curve-size) + var(--border-width) * 0.5),
+            calc(var(--curve-size) + var(--border-width) * 0.5) var(--border-width),
+            calc(100% - var(--border-width)) var(--border-width),
+            calc(100% - var(--border-width)) calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
+            calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)) calc(100% - var(--border-width)),
+            var(--border-width) calc(100% - var(--border-width)));
+    transition: clip-path 500ms;
+}
+
+#ingresar:where(:hover, :focus)::after {
+    clip-path: polygon(
+            calc(100% - var(--border-width)) calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
+            calc(100% - var(--border-width)) var(--border-width),
+            calc(100% - var(--border-width)) var(--border-width),
+            calc(100% - var(--border-width)) calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
+            calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)) calc(100% - var(--border-width)),
+            calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)) calc(100% - var(--border-width)));
+    transition: 200ms;
+}
+
+#ingresar:where(:hover, :focus) {
+    color: #fff;
+}
+
+.error-message {
+    color: #ff0000;
+    text-align: center;
+    font-size: 0.9rem;
+    display: none;
+}
+
+@keyframes glitch {
+    0% {
+        clip-path: var(--slice-1);
+        transform: translate(-20px, -10px);
+    }
+    100% {
+        clip-path: var(--slice-1);
+        transform: translate(0);
+    }
+}
+
+/* Estilos del botón Regresar */
+.btnregresar {
     --border-color: linear-gradient(-45deg, #ff0000, #7e03aa, #00fffb);
     --border-width: 0.125em;
     --curve-size: 0.5em;
@@ -92,35 +200,33 @@ input[type="text"]:focus {
     margin-top: 20px;
 }
 
-.btncompa::after,
-.btncompa::before {
+.btnregresar::after,
+.btnregresar::before {
     content: "";
     position: absolute;
     inset: 0;
 }
 
-.btncompa::before {
+.btnregresar::before {
     background: var(--border-color);
     background-size: 300% 300%;
-    animation: move-bg7234 5s ease infinite;
+    animation: move-bgregresar 5s ease infinite;
     z-index: -2;
 }
 
-@keyframes move-bg7234 {
+@keyframes move-bgregresar {
     0% {
         background-position: 31% 0%;
     }
-
     50% {
         background-position: 70% 100%;
     }
-
     100% {
         background-position: 31% 0%;
     }
 }
 
-.btncompa::after {
+.btnregresar::after {
     background: var(--bg);
     z-index: -1;
     clip-path: polygon(
@@ -137,7 +243,7 @@ input[type="text"]:focus {
     transition: clip-path 500ms;
 }
 
-.btncompa:where(:hover, :focus)::after {
+.btnregresar:where(:hover, :focus)::after {
     clip-path: polygon(
             /* Top-left */
             calc(100% - var(--border-width)) calc(100% - calc(var(--curve-size) + var(--border-width) * 0.5)),
@@ -152,17 +258,7 @@ input[type="text"]:focus {
     transition: 200ms;
 }
 
-.btncompa:where(:hover, :focus) {
+.btnregresar:where(:hover, :focus) {
     color: #fff;
 }
 
-@keyframes glitch {
-    0% {
-        clip-path: var(--slice-1);
-        transform: translate(-20px, -10px);
-    }
-    100% {
-        clip-path: var(--slice-1);
-        transform: translate(0);
-    }
-}

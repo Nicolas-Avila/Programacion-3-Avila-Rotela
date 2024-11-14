@@ -3,38 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./img/icons8-favicon-64.png" type="image/x-icon" >
-    <link rel="stylesheet" href="../css/index.css"><!--La clase para ocultar el error está en la index, no me pareció crear una css sola para esto-->
+    <link rel="icon" href="./img/icons8-favicon-64.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/loginAdmin.css">
     <title>Sitio de compras de electrónica</title>
 </head>
 <body>
-
-  
     <div class="container"> 
         <div class="row"> 
             <div class="col-md-6"> 
                 <div class="card"> 
                     <div class="box">
-
-                        <h1>Login del Administrador</h1> 
+                        <h1>Inicio del Administrador</h1> 
                         <p> Ingrese su usuario </p> 
-                            <form onsubmit="return EvaluarAdmin()">
-
-                                <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Ingrese su nombre"  maxlength="12">
-                                <input type="password" name="passUsuario" id="passUsuario" placeholder="Ingrese su password"  autocomplete="current-password" maxlength="12">
-                                <!--el mensaje de error sólo se muestra cuando ponen mal la pass-->
-                                <p id="mensaje" class="error-message">Usuario o password incorrectas, vuelva a intentarlo</p>
-                                <button type="submit" id="ingresar">Ingresar</button>
-                            </form>
-                            
-                            
+                        <form onsubmit="return EvaluarAdmin()">
+                            <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Ingrese su nombre" maxlength="12">
+                            <input type="password" name="passUsuario" id="passUsuario" placeholder="Ingrese su password" autocomplete="current-password" maxlength="12">
+                            <p id="mensaje" class="error-message">Usuario o password incorrectas, vuelva a intentarlo</p>
+                            <button type="submit" id="ingresar">Ingresar</button>
+                        </form>
+                        <!-- Botón para regresar al index -->
+                        <button id="regresar" class="btnregresar" onclick="window.location.href='../index.html'">Regresar al Inicio</button>
                     </div>
-
                 </div>
             </div>
         </div>
-
+    </div>
+  
+    <script src="../js/obtencionUsuario.js"></script>
+    <script src="../js/loginAdmin.js"></script>
 </body>
-<script src="../js/obtencionUsuario.js"></script>
-<script src="../js/loginAdmin.js"></script>
 </html>

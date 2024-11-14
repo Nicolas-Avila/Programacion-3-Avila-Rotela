@@ -3,7 +3,6 @@ const botonIngresar = document.getElementById("ingresar");
 if (botonIngresar) {
     botonIngresar.addEventListener("click", function() {
         const nombreUsuario = document.getElementById("nombreUsuario").value;
-
         if (nombreUsuario) {
             localStorage.setItem("nombreUsuario", nombreUsuario);
         } else {
@@ -11,6 +10,7 @@ if (botonIngresar) {
         }
     });
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const nombreUsuarioSpan = document.getElementById("nombreUsuarioSpan");

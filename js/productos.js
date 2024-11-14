@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || []; // Inicializar el carrito
 
-    fetch('../json/productos.json')
+    // Función para cargar los productos desde el servidor
+    fetch('http://localhost:3000/productos/mostrar')
         .then(response => response.json())
-        .then(data => {
+        .then(productos => {
             let productosHTML = '';
-            data.productos.forEach(producto => {
+            productos.forEach(producto => {
                 productosHTML += `                    
                     <div class="card col-md-4 col-sm-6 col-lg-3 m-4">
                         <div style="position: relative;">
@@ -15,13 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="card-body">
                             <h5 class="card-title">${producto.nombreProducto}</h5>
                             <p class="card-text">${producto.descripcionProducto}</p>
-                            <a href="#" class="btn btncompa btn-primary" data-nombre="${producto.nombreProducto}" data-precio="${producto.precioProducto}" data-img="${producto.imgSrc}">Agregar producto</a>
+                            <a class="btn btncompa btn-primary agregar" data-nombre="${producto.nombreProducto}" data-precio="${producto.precioProducto}" data-img="${producto.imgSrc}">Agregar producto</a>
                         </div>
                     </div>`;
             });
             document.getElementById("contenedor-productos").insertAdjacentHTML('beforeend', productosHTML);
 
-            document.querySelectorAll('.btn-primary').forEach(boton => {
+            // Manejo de los botones para agregar productos al carrito
+            document.querySelectorAll('.agregar').forEach(boton => {
                 boton.addEventListener('click', function (event) {
                     event.preventDefault();
 
@@ -29,22 +31,23 @@ document.addEventListener("DOMContentLoaded", function () {
                     const precio = this.getAttribute('data-precio');
                     const imgSrc = this.getAttribute('data-img');
 
+                    // Verificamos si el producto ya está en el carrito
                     const productoEnCarrito = carrito.find(item => item.nombre === nombre);
 
                     if (productoEnCarrito) {
-                        productoEnCarrito.cantidad += 1;
+                        productoEnCarrito.cantidad += 1; // Aumentar cantidad si ya está en el carrito
                     } else {
-                        carrito.push({ nombre, precio, imgSrc, cantidad: 1 });
+                        carrito.push({ nombre, precio, imgSrc, cantidad: 1 }); // Añadir nuevo producto al carrito
                     }
 
-                    localStorage.setItem('carrito', JSON.stringify(carrito));
-                    mostrarCarrito();
+                    localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardar carrito actualizado en localStorage
+                    mostrarCarrito(); // Mostrar carrito actualizado
                 });
             });
+        })
+        .catch(error => console.error('Error al obtener productos:', error));
 
-            mostrarCarrito();
-        });
-
+    // Función para mostrar los productos en el carrito
     function mostrarCarrito() {
         const carritoDiv = document.getElementById("carrito");
         carritoDiv.innerHTML = '';
@@ -67,27 +70,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `);
 
-            // elimina un producto
+            // Evento para eliminar un producto
             document.getElementById(`basura-${index}`).addEventListener('click', function () {
                 if (item.cantidad > 1) {
                     item.cantidad -= 1;
                 } else {
-                    carrito.splice(index, 1);
+                    carrito.splice(index, 1); // Eliminar producto completamente si su cantidad es 1
                 }
-                localStorage.setItem('carrito', JSON.stringify(carrito));
-                mostrarCarrito();
+                localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardar carrito actualizado en localStorage
+                mostrarCarrito(); // Mostrar carrito actualizado
             });
-            // agregar en el carrito
+
+            // Evento para agregar más unidades del producto en el carrito
             document.getElementById(`agregar-${index}`).addEventListener('click', function () {
-                item.cantidad += 1
-                localStorage.setItem('carrito', JSON.stringify(carrito));
-                mostrarCarrito();
-            })
-
-
+                item.cantidad += 1;
+                localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardar carrito actualizado en localStorage
+                mostrarCarrito(); // Mostrar carrito actualizado
+            });
         });
 
-        // boton modal del carrito
+        // Botón para finalizar compra
         if (carrito.length > 0) {
             carritoDiv.insertAdjacentHTML('beforeend', `
                 <div class="mt-3">
@@ -97,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Función para manejar los datos del formulario de pago
     function datosUsuario() {
         document.getElementById('formularioPago').addEventListener('submit', function (event) {
             event.preventDefault();
@@ -109,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const fechaCaducidad = document.getElementById('fecha-caducidad').value;
             const codigoSeguridad = document.getElementById('codigo-seguridad').value;
 
+            // Guardar datos de pago y usuario en localStorage
             localStorage.setItem('nombre', nombre);
             localStorage.setItem('apellido', apellido);
             localStorage.setItem('dni', dni);
@@ -117,9 +121,11 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem('fechaCaducidad', fechaCaducidad);
             localStorage.setItem('codigoSeguridad', codigoSeguridad);
 
+            // Redirigir a la página de la factura
             window.location.href = "factura.html";
         });
     }
 
     datosUsuario();
+    mostrarCarrito();
 });

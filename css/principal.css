@@ -105,6 +105,12 @@ body {
     padding: 15px;
 }
 
+.card-img-top {
+    width: 100%;
+    height: 250px; 
+    object-fit: cover; 
+}
+
 .precio {
     position: absolute;
     bottom: 10px;

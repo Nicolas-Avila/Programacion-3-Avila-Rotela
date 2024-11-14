@@ -10,23 +10,17 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="box">
-                        <h1>Login</h1>
-                        <p> Ingrese su usuario </p>
-                        <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Ingrese su nombre"
-                            autocomplete="username" maxlength="12">
-                        <button id="ingresar" onclick="EvaluarUsuario()">Ingresar</button>
-                        <br/>
-                        <button id="Ingreso de Administrador" onclick="EvaluarAdmin()">Ingreso de Administrador</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="box">
+        <h1>BIENVENIDO</h1>
+        <p>Ingrese su nombre</p>
+        <input type="text" name="nombreUsuario" id="nombreUsuario" placeholder="Ingrese su nombre"
+            autocomplete="username" maxlength="12">
+        <button class="btncompa" id="ingresar" onclick="EvaluarUsuario()">Ingresar</button>
+        <br />
+        <button class="btncompa" id="Ingreso de Administrador" onclick="EvaluarAdmin()">Ingreso de Administrador</button>
+    </div>
+
+    <script src="./js/obtencionUsuario.js"></script>
 </body>
-<script src="./js/obtencionUsuario.js"></script>
 
 </html>

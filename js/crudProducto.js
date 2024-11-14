@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Función para cargar productos
     async function cargarProductos() {
         try {
-            const response = await fetch("http://localhost:3000/productos/mostrar");
+            const response = await fetch("http://localhost:3000/productos/todo");
             const productos = await response.json();
             let productosHTML = "";
 
@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <td>${producto.nombreProducto}</td>
                         <td>${producto.descripcionProducto}</td>
                         <td>${producto.precioProducto}</td>
+                        <td>${producto.eliminado ? "No esta en venta" : "En venta"}</td>
                         <td>
                             <button class="btn btn-modify"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-delete" data-id="${producto.id}"><i class="fas fa-trash-alt"></i></button>
@@ -48,8 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
             console.log("Producto eliminado:", result);
 
-            location.reload()
-            cargarProductos();
+    location.reload()
+            await cargarProductos();
         } catch (error) {
             console.error("Error al eliminar producto:", error);
         }
@@ -80,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             const result = await response.json();
             console.log("Producto creado:", result);
-            cargarProductos();
+            await cargarProductos();
             productForm.reset();
         } catch (error) {
             console.error("Error al crear producto:", error);
