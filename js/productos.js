@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || []; // Inicializar el carrito
 
     // Función para cargar los productos desde el servidor
-    fetch('http://localhost:3000/productos/mostrar')
+    fetch('http://localhost:3000/productos/productos')
         .then(response => response.json())
         .then(productos => {
             let productosHTML = '';
@@ -35,13 +35,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     const productoEnCarrito = carrito.find(item => item.nombre === nombre);
 
                     if (productoEnCarrito) {
-                        productoEnCarrito.cantidad += 1; // Aumentar cantidad si ya está en el carrito
+                        productoEnCarrito.cantidad += 1;
                     } else {
-                        carrito.push({ nombre, precio, imgSrc, cantidad: 1 }); // Añadir nuevo producto al carrito
+                        carrito.push({ nombre, precio, imgSrc, cantidad: 1 });
                     }
-
-                    localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardar carrito actualizado en localStorage
-                    mostrarCarrito(); // Mostrar carrito actualizado
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+                    mostrarCarrito(); 
                 });
             });
         })
@@ -75,17 +74,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (item.cantidad > 1) {
                     item.cantidad -= 1;
                 } else {
-                    carrito.splice(index, 1); // Eliminar producto completamente si su cantidad es 1
+                    carrito.splice(index, 1);
                 }
-                localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardar carrito actualizado en localStorage
-                mostrarCarrito(); // Mostrar carrito actualizado
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                mostrarCarrito();
             });
 
             // Evento para agregar más unidades del producto en el carrito
             document.getElementById(`agregar-${index}`).addEventListener('click', function () {
                 item.cantidad += 1;
-                localStorage.setItem('carrito', JSON.stringify(carrito)); // Guardar carrito actualizado en localStorage
-                mostrarCarrito(); // Mostrar carrito actualizado
+                localStorage.setItem('carrito', JSON.stringify(carrito)); 
+                mostrarCarrito(); 
             });
         });
 

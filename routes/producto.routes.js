@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const Producto = require("../entity/producto.entity.js"); // Asegúrate de que el path es correcto
+const Producto = require("../entity/producto.entity.js");
 
 // Ruta: localhost:3000/productos/
 router.get("/", (req, res) => {
     res.send("Estoy en el router de productos");
 });
-//crear producto
+
+// Crear producto
 router.post("/crear", async (req, res) => {
     try {
-        // Tomar los datos del body
         const { nombreProducto, descripcionProducto, imgSrc, precioProducto, eliminado } = req.body;
 
         // Validación del precio
@@ -32,17 +32,13 @@ router.post("/crear", async (req, res) => {
         res.status(500).json({ error: "Error al crear el producto" });
     }
 });
-//mostrar todo que no este eliminado logicamente
-router.get("/mostrar", async (req, res) => {
-    const resultado = await Producto.findAll({
-        where: { eliminado: false },
-    });
-    res.send(resultado);
-});
-//muestra un producto que no este eliminado logicamente
-router.get("/todo", async (req, res) => {
+
+// Mostrar todos los productos no eliminados
+router.get("/productos", async (req, res) => {
     try {
-        const resultado = await Producto.findAll();
+        const resultado = await Producto.findAll({
+            where: { eliminado: false }
+        });
         res.send(resultado);
     } catch (error) {
         console.error("Error al obtener productos:", error);
@@ -50,25 +46,47 @@ router.get("/todo", async (req, res) => {
     }
 });
 
-//actualiza un producto
+// Mostrar todos los productos con los eliminados
+router.get("/todosIncluidos", async (req, res) => {
+    try {
+        const resultado = await Producto.findAll();
+        res.send(resultado);
+    } catch (error) {
+        console.error("Error al obtener todos los productos:", error);
+        res.status(500).send({ error: "Error al obtener productos" });
+    }
+});
+
+// Actualizar un producto
 router.put("/actualizar/:id", async (req, res) => {
-    const resultado = await Producto.update(
-        {
-            ...req.body,
-        },
-        {
-            where: {
-                id: req.params.id,
-                eliminado: false,
-            },
+    try {
+        const producto = await Producto.findOne({
+            where: { id: req.params.id }
+        });
+
+        if (!producto) {
+            return res.status(404).json({ error: true, message: "Producto no encontrado" });
         }
-    );
-    res.send(resultado);
+
+        // Actualización del producto
+        await Producto.update(req.body, {
+            where: { id: req.params.id}
+        });
+
+        const productoActualizado = await Producto.findOne({
+            where: { id: req.params.id}
+        });
+
+        res.json({ success: true, producto: productoActualizado });
+    } catch (error) {
+        console.error("Error al actualizar el producto:", error);
+        res.status(500).json({ error: "Error al actualizar el producto" });
+    }
 });
 
 // Baja lógica
 router.delete("/quitar/:id", async (req, res) => {
-    const resultado = Producto.update(
+    const resultado = await Producto.update(
         { eliminado: true },
         { where: { id: req.params.id } }
     );
