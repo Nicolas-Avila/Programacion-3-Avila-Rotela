@@ -26,5 +26,7 @@ function EvaluarAdmin() {
 }
 
 function EvaluarUsuario() {
-    window.location.href = "./html/principal.html";
+    window.location.href = "http://localhost:3000/tienda";
 }
+
+

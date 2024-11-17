@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factura</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/factura.css">
+    <link rel="stylesheet" href="/css/factura.css">
 </head>
-
 <body>
     <div class="ticket" id="factura">
         <h2 class="text-center">Factura</h2>
@@ -18,8 +16,8 @@
             <p><strong>Apellido:</strong> <span id="apellido"></span></p>
             <p><strong>DNI:</strong> <span id="dni"></span></p>
             <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
-
         </div>
+
         <h3 class="mt-1">Detalle de la compra</h3>
         <div id="productos-carrito"></div>
         <div class="total mt-3" id="total"></div>
@@ -29,10 +27,12 @@
             Descargar factura
         </button>
     </center>
+
+    <!-- Cargar jsPDF primero -->
     <script src="../node_modules/jspdf/dist/jspdf.umd.js"></script>
-    <script src="../js/factura.js"></script>
+    <!-- Luego cargar html2canvas -->
     <script src="../node_modules/html2canvas/dist/html2canvas.js"></script>
-
+    <!-- Luego cargar tu script de factura -->
+    <script src="/js/factura.js"></script>
 </body>
-
 </html>
