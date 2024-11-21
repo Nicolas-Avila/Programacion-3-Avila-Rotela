@@ -1,51 +1,81 @@
 document.addEventListener("DOMContentLoaded", () => {
     const productForm = document.getElementById("productForm");
     const tableBody = document.querySelector("table tbody");
+// Función para cargar productos
+async function cargarProductos() {
+    try {
+        const response = await fetch("http://localhost:3000/productos/todosIncluidos");
+        const productos = await response.json();
+        let productosHTML = "";
 
-    // Función para cargar productos
-    async function cargarProductos() {
-        try {
-            const response = await fetch("http://localhost:3000/productos/todosIncluidos");
-            const productos = await response.json();
-            let productosHTML = "";
+        productos.forEach((producto) => {
+            productosHTML += `
+                <tr data-id="${producto.id}">
+                    <td>${producto.id}</td>
+                    <td><img src="${producto.imgSrc}" alt="${producto.nombreProducto}" style="width: 50px; height: auto;"></td>
+                    <td>${producto.nombreProducto}</td>
+                    <td>${producto.descripcionProducto}</td>
+                    <td>${producto.precioProducto}</td>
+                    <td>${producto.eliminado ? "No está en venta" : "En venta"}</td>
+                    <td>
+                        <button class="btn btn-warning btn-modify"><i class="fas fa-edit"></i></button>
+                        ${producto.eliminado
+                            ? `<button class="btn btn-success btn-restore" data-id="${producto.id}"><i class="fas fa-undo-alt"></i></button>`
+                            : `<button class="btn btn-danger btn-delete" data-id="${producto.id}"><i class="fas fa-trash-alt"></i></button>`
+                        }
+                    </td>
+                </tr>
+            `;
+        });
 
-            productos.forEach((producto) => {
-                productosHTML += `
-                    <tr data-id="${producto.id}">
-                        <td>${producto.id}</td>
-                        <td><img src="${producto.imgSrc}" alt="${producto.nombreProducto}" style="width: 50px; height: auto;"></td>
-                        <td>${producto.nombreProducto}</td>
-                        <td>${producto.descripcionProducto}</td>
-                        <td>${producto.precioProducto}</td>
-                        <td>${producto.eliminado ? "No está en venta" : "En venta"}</td>
-                        <td>
-                            <button class="btn btn-warning btn-modify"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-danger btn-delete" data-id="${producto.id}"><i class="fas fa-trash-alt"></i></button>
-                        </td>
-                    </tr>
-                `;
+        tableBody.innerHTML = "";
+        tableBody.insertAdjacentHTML("beforeend", productosHTML);
+
+        // Eventos para botones de eliminar/restaurar
+        document.querySelectorAll(".btn-delete").forEach((button) => {
+            button.addEventListener("click", async (event) => {
+                const productId = event.currentTarget.getAttribute("data-id");
+                await eliminarProducto(productId);
             });
+        });
 
-            tableBody.innerHTML = "";
-            tableBody.insertAdjacentHTML("beforeend", productosHTML);
-
-            document.querySelectorAll(".btn-delete").forEach((button) => {
-                button.addEventListener("click", async (event) => {
-                    const productId = event.currentTarget.getAttribute("data-id");
-                    await eliminarProducto(productId);
-                });
+        document.querySelectorAll(".btn-restore").forEach((button) => {
+            button.addEventListener("click", async (event) => {
+                const productId = event.currentTarget.getAttribute("data-id");
+                await restaurarProducto(productId);
             });
+        });
 
-            document.querySelectorAll(".btn-modify").forEach((button) => {
-                button.addEventListener("click", (event) => {
-                    const productId = event.currentTarget.closest('tr').dataset.id;
-                    cargarProductoParaEditar(productId);
-                });
+        // Eventos para botón de modificar
+        document.querySelectorAll(".btn-modify").forEach((button) => {
+            button.addEventListener("click", (event) => {
+                const productId = event.currentTarget.closest('tr').dataset.id;
+                cargarProductoParaEditar(productId);
             });
-        } catch (error) {
-            console.error("Error al cargar productos:", error);
-        }
+        });
+    } catch (error) {
+        console.error("Error al cargar productos:", error);
     }
+
+    
+}
+
+// Función para restaurar un producto
+async function restaurarProducto(id) {
+    try {
+        const response = await fetch(`http://localhost:3000/productos/restaurar/${id}`, {
+            method: "PUT",
+        });
+        const result = await response.json();
+        console.log("Producto restaurado:", result);
+
+        await cargarProductos();
+    } catch (error) {
+        console.error("Error al restaurar producto:", error);
+    }
+}
+
+
 
     // Función para eliminar un producto
     async function eliminarProducto(id) {

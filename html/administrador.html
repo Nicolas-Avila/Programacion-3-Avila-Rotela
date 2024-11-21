@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,16 @@
     <link rel="stylesheet" href="../css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <header>
         <h1>Bienvenido Administrador</h1>
         <a href="http://localhost:3000/a"><button id="principal">Ir a principal</button></a>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearModal">Crear un nuevo producto</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearModal">Crear un nuevo
+            producto</button>
+        <!-- Botón para abrir modal de crear administrador -->
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearAdminModal">Crear
+            Administrador</button>
     </header>
     <section>
         <h2>Actualizar Catálogo</h2>
@@ -29,12 +35,30 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Los productos se cargarán aca -->
+                <!-- Los productos se cargarán aquí -->
             </tbody>
         </table>
     </section>
 
-    <!-- Modal Crear Producto -->
+    <section>
+        <h2>Administradores</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Contraseña</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody id="adminTable">
+                <!-- Los admin se cargarán aquí -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Modales para Crear y Editar Producto -->
+    <!-- Crear Modal -->
     <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -63,7 +87,7 @@
         </div>
     </div>
 
-    <!-- Modal Editar Producto -->
+    <!-- Editar Modal -->
     <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -74,7 +98,6 @@
                 <div class="modal-body">
                     <form id="editProductForm">
                         <input type="hidden" id="editProductId">
-
                         <label for="editNombreProducto">Nombre del Producto:</label>
                         <input type="text" id="editNombreProducto" class="form-control" required>
 
@@ -94,7 +117,52 @@
         </div>
     </div>
 
+    <!-- Modal Crear Administrador -->
+    <div class="modal fade" id="crearAdminModal" tabindex="-1" aria-labelledby="crearAdminModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="crearAdminModalLabel">Crear Nuevo Administrador</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adminForm">
+                        <label for="adminNombre">Nombre del Administrador:</label>
+                        <input type="text" id="adminNombre" class="form-control" required>
+
+                        <label for="adminPassword">Contraseña:</label>
+                        <input type="password" id="adminPassword" class="form-control" required>
+
+                        <button type="submit" id="adminSubmit" class="btn btn-primary mt-3">Crear Administrador</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Confirmar Eliminación de Administrador -->
+    <div class="modal fade" id="borrarAdminModal" tabindex="-1" aria-labelledby="borrarAdminModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="borrarAdminModalLabel">Eliminar Administrador</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar este administrador?</p>
+                    <button id="confirmarEliminarAdmin" class="btn btn-danger">Eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/crudAdmin.js"></script>
     <script src="../js/crudProducto.js"></script>
 </body>
+
 </html>

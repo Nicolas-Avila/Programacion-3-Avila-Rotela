@@ -93,4 +93,33 @@ router.delete("/quitar/:id", async (req, res) => {
     res.send(resultado);
 });
 
+// Restaurar un producto (cambiar eliminado a false)
+router.put("/restaurar/:id", async (req, res) => {
+    try {
+        const producto = await Producto.findOne({
+            where: { id: req.params.id }
+        });
+
+        if (!producto) {
+            return res.status(404).json({ error: true, message: "Producto no encontrado" });
+        }
+
+        // Restaurar el producto
+        await Producto.update(
+            { eliminado: false },  // Cambiar el estado eliminado a false
+            { where: { id: req.params.id } }
+        );
+
+        const productoRestaurado = await Producto.findOne({
+            where: { id: req.params.id }
+        });
+
+        res.json({ success: true, producto: productoRestaurado });
+    } catch (error) {
+        console.error("Error al restaurar el producto:", error);
+        res.status(500).json({ error: "Error al restaurar el producto" });
+    }
+});
+
+
 module.exports = router;
