@@ -131,3 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar el carrito con los datos guardados en localStorage
     actualizarCarrito();
 });
+
+function EvaluarAdmin() {
+    window.location.href = "./html/loginAdmin.html";
+}
+
+function EvaluarUsuario() {
+    window.location.href = "http://localhost:3000/tienda";
+}
