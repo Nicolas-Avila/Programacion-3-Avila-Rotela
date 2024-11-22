@@ -13,8 +13,9 @@
 <body>
     <header>
         <h1>Bienvenido Administrador</h1>
-        <a href="http://localhost:3000/a"><button id="principal">Ir a principal</button></a>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearModal">Crear un nuevo
+            <a href="../html/loginAdmin.html"><button class="btn btn-danger" id="principal">Cerrar Sesion</button></a>
+        <a href="http://localhost:3000/tienda"><button class="btn btn-success" id="principal">Ir a la tienda</button></a>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearModal">Crear un nuevo
             producto</button>
         <!-- Botón para abrir modal de crear administrador -->
         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearAdminModal">Crear
@@ -141,23 +142,30 @@
         </div>
     </div>
 
-    <!-- Modal Confirmar Eliminación de Administrador -->
-    <div class="modal fade" id="borrarAdminModal" tabindex="-1" aria-labelledby="borrarAdminModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="borrarAdminModalLabel">Eliminar Administrador</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estás seguro de que deseas eliminar este administrador?</p>
-                    <button id="confirmarEliminarAdmin" class="btn btn-danger">Eliminar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
+<!-- Modal Editar Administrador -->
+<div class="modal fade" id="editarAdminModal" tabindex="-1" aria-labelledby="editarAdminModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editarAdminModalLabel">Editar Administrador</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editAdminForm">
+                    <input type="hidden" id="editAdminId">
+                    <label for="editAdminNombre">Nombre del Administrador:</label>
+                    <input type="text" id="editAdminNombre" class="form-control" required>
+
+                    <label for="editAdminPassword">Contraseña:</label>
+                    <input type="password" id="editAdminPassword" class="form-control" required>
+
+                    <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

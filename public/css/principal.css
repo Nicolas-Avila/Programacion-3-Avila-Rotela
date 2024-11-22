@@ -316,3 +316,56 @@ body {
     }
 }
 
+/* Estilo para el contenedor del carrito */
+#carrito {
+    display: flex;
+    flex-direction: column; /* Cambié a columna para que los productos se apilen verticalmente */
+    align-items: flex-start;
+    padding: 10px;
+}
+
+/* Estilo para cada item del carrito */
+.carrito-item {
+    display: flex;
+    justify-content: space-between; /* Alinea los productos y su información */
+    align-items: center;
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Información del producto dentro del carrito */
+.carrito-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botón eliminar */
+.carrito-item button {
+    margin-left: 10px;
+}
+
+/* Estilo para el total */
+.carrito-total {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Estilo para el botón de finalizar compra */
+#carrito button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#carrito button:hover {
+    background-color: #218838;
+}
+

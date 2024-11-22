@@ -59,16 +59,17 @@ window.addEventListener("DOMContentLoaded", function () {
 
 // Función para guardar la factura como PDF
 function guardar() {
+    console.log("Función guardar llamada");
     const doc = new jsPDF();
     const elementoFactura = document.getElementById("factura");
 
-    // Crear una captura del HTML de la factura con html2canvas
     html2canvas(elementoFactura, { scale: 2 }).then(canvas => {
         const imgData = canvas.toDataURL("image/png");
-        const imgWidth = 180; // Ancho en mm
+        const imgWidth = 180;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
         doc.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
         doc.save("Factura.pdf");
     });
 }
+
