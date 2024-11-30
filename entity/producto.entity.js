@@ -19,10 +19,14 @@ const ProductoSequelize = sequelize.define(
         },
         imgSrc: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
+            allowNull: true,
+        }, 
         precioProducto: {
             type: DataTypes.FLOAT,
+            allowNull: false,
+        },
+        tipo: {
+            type: DataTypes.ENUM("hardware", "software"),
             allowNull: false,
         },
         eliminado: {

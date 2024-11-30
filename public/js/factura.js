@@ -55,11 +55,17 @@ window.addEventListener("DOMContentLoaded", function () {
             <strong>Total: $${total.toFixed(2)}</strong>
         `;
     }
+
+    // Agregar el evento al botón para evitar la llamada inline
 });
 
 // Función para guardar la factura como PDF
 function guardar() {
     console.log("Función guardar llamada");
+    
+    // Accede a jsPDF desde el objeto global
+    const { jsPDF } = window.jspdf;
+
     const doc = new jsPDF();
     const elementoFactura = document.getElementById("factura");
 

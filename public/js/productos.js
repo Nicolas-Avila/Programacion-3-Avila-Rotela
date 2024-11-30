@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para actualizar el carrito en el sidebar
     function actualizarCarrito() {
         const carritoContainer = document.getElementById('carrito');
-        carritoContainer.innerHTML = ''; // Limpiar el contenido
+        carritoContainer.innerHTML = '';
 
         if (carrito.length === 0) {
             carritoContainer.innerHTML = '<p>Tu carrito está vacío</p>';
@@ -30,23 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     eliminarDelCarrito(index);
                 });
 
-                // Agregar el botón de eliminar al contenedor del item
                 itemCarrito.appendChild(botonEliminar);
 
                 // Agregar el botón "Agregar al carrito" (en caso de que quieras permitir agregar más unidades)
                 const botonAgregar = document.createElement('button');
                 botonAgregar.classList.add('btn', 'btn-primary', 'btn-sm');
-                botonAgregar.textContent = 'Agregar +1'; // Este botón agregará 1 más al carrito
+                botonAgregar.textContent = 'Agregar +1';
                 
                 // Asignar el evento de clic para aumentar la cantidad del producto
                 botonAgregar.addEventListener('click', () => {
                     agregarAlCarrito(producto.nombre, producto.precio, producto.imagen);
                 });
 
-                // Agregar el botón "Agregar +1" al contenedor del item
                 itemCarrito.appendChild(botonAgregar);
 
-                // Agregar el item al carrito en el contenedor
                 carritoContainer.appendChild(itemCarrito);
             });
 
@@ -67,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
             carritoContainer.appendChild(botonFinalizar);
         }
 
-        // Guardar el carrito actualizado en localStorage
         localStorage.setItem('carrito', JSON.stringify(carrito));
     }
 
@@ -81,19 +77,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Si no está, agregarlo con cantidad 1 y la imagen
             carrito.push({ nombre, precio, cantidad: 1, imagen });
         }
-        actualizarCarrito();  // Actualizar el carrito con el nuevo producto
+        actualizarCarrito();
     }
 
     // Función para eliminar 1 unidad del producto del carrito
     function eliminarDelCarrito(index) {
         if (carrito[index].cantidad > 1) {
-            // Si la cantidad es mayor que 1, disminuir la cantidad
             carrito[index].cantidad -= 1;
         } else {
-            // Si la cantidad es 1, eliminar el producto completamente
             carrito.splice(index, 1);
         }
-        actualizarCarrito();  // Actualizar el carrito después de la eliminación
+        actualizarCarrito();
     }
 
     // Asignar eventos a los botones de agregar al carrito
@@ -102,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         boton.addEventListener('click', (e) => {
             const nombreProducto = e.target.getAttribute('data-nombre');
             const precioProducto = parseFloat(e.target.getAttribute('data-precio'));
-            const imagenProducto = e.target.getAttribute('data-imagen'); // Asegúrate de que el botón tenga un atributo data-imagen
+            const imagenProducto = e.target.getAttribute('data-imagen');
             agregarAlCarrito(nombreProducto, precioProducto, imagenProducto);
         });
     });
@@ -118,24 +112,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const dni = document.getElementById('dni').value;
         const telefono = document.getElementById('telefono').value;
 
-        // Guardar los datos de pago en localStorage
         localStorage.setItem('nombre', nombre);
         localStorage.setItem('apellido', apellido);
         localStorage.setItem('dni', dni);
         localStorage.setItem('telefono', telefono);
 
-        // Redirigir a la página de la factura
-        window.location.href = '/factura.html'; // Redirige a la factura
+        window.location.href = '/factura'; 
     });
 
-    // Inicializar el carrito con los datos guardados en localStorage
+    document.getElementById("cerrarSesionBtn").addEventListener("click", function() {
+        localStorage.clear(); 
+        window.location.href = "/"; 
+    });
+    
+    
+
     actualizarCarrito();
 });
 
 function EvaluarAdmin() {
-    window.location.href = "./html/loginAdmin.html";
+    window.location.href = "http://127.0.0.1:5500/html/administrador.html";
 }
 
 function EvaluarUsuario() {
-    window.location.href = "http://localhost:3000/tienda";
+    window.location.href = "/tienda";
 }
+

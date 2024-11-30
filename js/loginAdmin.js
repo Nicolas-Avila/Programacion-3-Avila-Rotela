@@ -1,8 +1,9 @@
-// Función para evaluar el login
+// Función para evaluar el login del administrador
 async function EvaluarAdmin(event) {
-    event.preventDefault();  // Evita que la página se recargue al enviar el formulario
+    event.preventDefault();
     console.log("La función EvaluarAdmin() se está ejecutando");
 
+    // Obtener y limpiar los valores de los campos de entrada
     const nombreHtml = document.getElementById("nombreUsuario").value.trim();
     const passHtml = document.getElementById("passUsuario").value.trim();
     const mensajeHtml = document.getElementById("mensaje");
@@ -11,12 +12,14 @@ async function EvaluarAdmin(event) {
     if (!nombreHtml || !passHtml) {
         mensajeHtml.style.display = "block";
         mensajeHtml.innerText = "Todos los campos son obligatorios.";
-        return false;  // Detiene el proceso si faltan datos
+        return false;
     }
 
+    // Crear un objeto con los datos del administrador
     const adminData = { nombre: nombreHtml, password: passHtml };
 
     try {
+        // Realizar una solicitud POST al servidor para verificar las credenciales
         const response = await fetch("http://localhost:3000/admin/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -24,26 +27,29 @@ async function EvaluarAdmin(event) {
         });
 
         const result = await response.json();
-        console.log("Respuesta del servidor:", result);  // Depuración
+        console.log("Respuesta del servidor:", result);
 
         if (result.success) {
             console.log("Autenticación exitosa, redirigiendo...");
-            window.location.href = "../html/administrador.html";  // Redirección a la página de administración
+            // Redirigir a la página de administración si la autenticación es exitosa
+            window.location.href = "../html/administrador.html";
         } else {
+            // Mostrar un mensaje de error si las credenciales son incorrectas
             mensajeHtml.style.display = "block";
             mensajeHtml.innerText = result.message || "Credenciales incorrectas.";
         }
     } catch (error) {
+        // Capturar y mostrar errores en la consola y en el elemento de mensaje
         console.error("Error en la autenticación:", error);
         mensajeHtml.style.display = "block";
         mensajeHtml.innerText = "Error en el servidor.";
     }
 
-    return false;  // Evita el envío del formulario tradicional
+    return false;
 }
 
 // Función para autocompletar los campos de usuario y contraseña
 document.getElementById("llenarDatos").addEventListener("click", () => {
-    document.getElementById("nombreUsuario").value = "nicolas";  // Usuario de prueba
-    document.getElementById("passUsuario").value = "1234";   // Contraseña de prueba
+    document.getElementById("nombreUsuario").value = "nicolas";
+    document.getElementById("passUsuario").value = "1234";
 });

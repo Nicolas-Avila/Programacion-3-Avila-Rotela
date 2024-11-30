@@ -3,25 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../public//img/icons8-favicon-64.png" type="image/x-icon">
+    <link rel="icon" href="/public/img/icons8-favicon-64.png" type="image/x-icon">
     <title>Factura</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/factura.css">
 </head>
 <body>
     <div class="ticket" id="factura">
-        <h2 class="text-center">Factura que no tengo que tenes en cuenta para nada</h2>
+        <h2 class="text-center">Factura</h2>
         <div class="mb-4">
             <h5>Datos de facturación</h5>
-            <p><strong>Nombre:</strong> <span id="nombre"></span></p>
-            <p><strong>Apellido:</strong> <span id="apellido"></span></p>
-            <p><strong>DNI:</strong> <span id="dni"></span></p>
-            <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
+            <p><strong>Nombre:</strong> <span><%= nombre %></span></p>
+            <p><strong>Apellido:</strong> <span><%= apellido %></span></p>
+            <p><strong>DNI:</strong> <span><%= dni %></span></p>
+            <p><strong>Teléfono:</strong> <span><%= telefono %></span></p>
         </div>
 
         <h3 class="mt-1">Detalle de la compra</h3>
-        <div id="productos-carrito"></div>
-        <div class="total mt-3" id="total"></div>
+        <div id="productos-carrito">
+            <% productos.forEach(function(producto) { %>
+                <p><strong><%= producto.nombre %></strong> - $<%= producto.precio %></p>
+            <% }); %>
+        </div>
+        <div class="total mt-3">
+            <strong>Total: $<%= total %></strong>
+        </div>
     </div>
     <center>
         <button id="botonDescarga" onclick="guardar()" class="btn btn-success">
@@ -31,6 +37,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="/js/producto.js"></script>
     <script src="/js/factura.js"></script>
 </body>
 </html>
