@@ -16,6 +16,10 @@ const AdminSequelize = sequelize.define(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        salt: {  // Campo para almacenar el salt
+            type: DataTypes.STRING,
+            allowNull: false,
         }
     },
     {
@@ -25,3 +29,4 @@ const AdminSequelize = sequelize.define(
 );
 
 module.exports = AdminSequelize;
+

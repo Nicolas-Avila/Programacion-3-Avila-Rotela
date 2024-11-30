@@ -8,9 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await fetch("http://localhost:3000/admin/");
             const admin = await response.json();  // Obtener los datos en formato JSON
+            
+            console.log(admin);  // Verificar la respuesta
+    
+            // Verificar que `admin` sea un array antes de intentar usar forEach
+            if (!Array.isArray(admin)) {
+                throw new Error("La respuesta del servidor no es un array");
+            }
+    
             let adminHTML = "";
-
-            // Crear filas de tabla con la información de cada administrador
+    
             admin.forEach((admin) => {
                 adminHTML += `
                     <tr data-id="${admin.id}">
@@ -27,14 +34,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     </tr>
                 `;
             });
-
+    
             tableBody.innerHTML = ""; 
             tableBody.insertAdjacentHTML("beforeend", adminHTML);  
-
+    
         } catch (error) {
             console.error("Error al cargar administradores:", error);
         }
     }
+    
 
     // Evento para crear un nuevo administrador
     adminForm.addEventListener("submit", async (event) => {
