@@ -1,62 +1,52 @@
-window.addEventListener("DOMContentLoaded", function () {
-    // Obtener los datos del usuario desde localStorage
-    const nombre = localStorage.getItem('nombre') || 'Sin nombre';
-    const apellido = localStorage.getItem('apellido') || 'Sin apellido';
-    const dni = localStorage.getItem('dni') || 'Sin DNI';
-    const telefono = localStorage.getItem('telefono') || 'Sin teléfono';
-    
-    // Mostrar los datos del usuario en la factura
-    document.getElementById('nombre').textContent = nombre;
-    document.getElementById('apellido').textContent = apellido;
-    document.getElementById('dni').textContent = dni;
-    document.getElementById('telefono').textContent = telefono;
+document.addEventListener('DOMContentLoaded', () => {
+    // Obtener los datos del cliente desde localStorage
+    const nombre = localStorage.getItem('nombre') || 'No disponible';
+    const apellido = localStorage.getItem('apellido') || 'No disponible';
+    const dni = localStorage.getItem('dni') || 'No disponible';
+    const telefono = localStorage.getItem('telefono') || 'No disponible';
+
+    // Mostrar los datos del cliente en la factura
+    document.getElementById('nombre').innerText = nombre;
+    document.getElementById('apellido').innerText = apellido;
+    document.getElementById('dni').innerText = dni;
+    document.getElementById('telefono').innerText = telefono;
 
     // Obtener el carrito desde localStorage
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const productosCarritoDiv = document.getElementById("productos-carrito");
-    const totalDiv = document.getElementById("total");
-    
-    // Si el carrito está vacío
-    if (carrito.length === 0) {
-        productosCarritoDiv.innerHTML = '<p>No hay productos en el carrito.</p>';
-        totalDiv.innerHTML = ''; // Si no hay productos, no mostrar el total
-    } else {
-        let total = 0;
-        
-        // Limpiar el contenido anterior de la factura
-        productosCarritoDiv.innerHTML = ''; 
-        
-        // Mostrar los productos del carrito
-        carrito.forEach(item => {
-            // Asegurarse de que el precio sea un número válido
-            const precio = parseFloat(item.precio);
-            const cantidad = item.cantidad || 1;  // Usar la cantidad, por defecto 1 si no está definida
-            
-            // Verificar que el precio sea válido
-            if (!isNaN(precio)) {
-                // Insertar el producto tantas veces como su cantidad
-                for (let i = 0; i < cantidad; i++) {
-                    total += precio; // Sumar el precio por cada unidad
 
-                    // Insertar el producto en la factura
-                    productosCarritoDiv.insertAdjacentHTML('beforeend', `
-                        <div class="producto">
-                            <span><strong>${item.nombre}</strong>: $${precio}</span>
-                        </div>
-                    `);
-                }
-            } else {
-                console.error("Precio no válido:", item);
-            }
+    // Obtener el contenedor de la tabla de productos
+    const carritoContainer = document.getElementById('productos-carrito');
+    
+    // Si el carrito está vacío, mostrar mensaje
+    if (carrito.length === 0) {
+        carritoContainer.innerHTML = '<tr><td colspan="4">No hay productos en el carrito.</td></tr>';
+    } else {
+        // Limpiar cualquier contenido previo
+        carritoContainer.innerHTML = '';
+
+        // Iterar sobre el carrito y agregar los productos a la tabla
+        carrito.forEach(producto => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${producto.nombre}</td>
+                <td>${producto.cantidad}</td>
+                <td>$${producto.precio.toFixed(2)}</td>
+                <td>$${(producto.precio * producto.cantidad).toFixed(2)}</td>
+            `;
+            carritoContainer.appendChild(row);
         });
 
-        // Mostrar el total en la factura
-        totalDiv.innerHTML = `
-            <strong>Total: $${total.toFixed(2)}</strong>
+        // Calcular el total
+        const total = carrito.reduce((sum, producto) => sum + (producto.precio * producto.cantidad), 0);
+        
+        // Agregar el total al final de la tabla
+        const totalRow = document.createElement('tr');
+        totalRow.innerHTML = `
+            <td colspan="3"><strong>Total</strong></td>
+            <td><strong>$${total.toFixed(2)}</strong></td>
         `;
+        carritoContainer.appendChild(totalRow);
     }
-
-    // Agregar el evento al botón para evitar la llamada inline
 });
 
 // Función para guardar la factura como PDF
@@ -77,5 +67,10 @@ function guardar() {
         doc.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
         doc.save("Factura.pdf");
     });
+}
+
+function regresar() {
+    localStorage.clear();
+    window.location.href = "/";
 }
 

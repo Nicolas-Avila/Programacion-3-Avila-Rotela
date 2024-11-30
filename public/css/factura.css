@@ -1,30 +1,133 @@
-/*el body tiene que ser de color rojo con un margen de 500 oixeles*/
-
+/* Estilo global */
 body {
-    background-color: #f8f9fa;
+    background-color: #f8f9fa; /* Fondo suave y claro */
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
 }
 
+/* Estilo para la tarjeta de la factura */
 .ticket {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    max-width: 600px; /* Aumenta el ancho de la factura */
+    margin: 50px auto; /* Centra la factura en la página */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+    background-color: #ffffff; /* Fondo blanco para la factura */
+    border: 1px solid #ddd; /* Borde sutil */
 }
 
+/* Estilo del título de la factura */
 .ticket h2 {
-    margin-bottom: 20px;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #343a40; /* Color gris oscuro */
+}
+
+/* Estilo para los datos de facturación */
+.ticket .mb-4 {
+    margin-bottom: 30px;
 }
 
 .ticket p {
-    margin: 5px 0;
+    margin: 10px 0;
+    font-size: 1.1em;
+    color: #555;
 }
 
+.ticket strong {
+    color: #343a40; /* Color más oscuro para los textos importantes */
+}
+
+/* Estilo para el detalle de la compra */
+h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #495057; /* Gris más suave */
+}
+
+/* Estilo para la tabla de productos */
+#tablaFactura {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+#tablaFactura th,
+#tablaFactura td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+#tablaFactura th {
+    background-color: #007bff; /* Color de fondo azul para los encabezados */
+    color: #fff;
+    font-weight: bold;
+}
+
+#tablaFactura td {
+    background-color: #f9f9f9; /* Fondo suave para las celdas */
+}
+
+#tablaFactura td strong {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilo para el total */
 .total {
     font-weight: bold;
     font-size: 1.2em;
+    text-align: right;
+    margin-top: 20px;
+    padding-right: 15px;
 }
 
+/* Estilos para los botones */
+#botonVolver, #botonDescarga {
+    display: inline-block; /* Los coloca uno al lado del otro */
+    width: auto; /* Ajusta el tamaño a su contenido */
+    margin: 20px 10px; /* Espacio entre los botones */
+    padding: 10px 20px;
+    background-color: #28a745; /* Color verde para el botón */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
+#botonVolver:hover, #botonDescarga:hover {
+    background-color: #218838; /* Color más oscuro al pasar el mouse */
+}
+
+/* Centrar los botones en su contenedor */
+.option {
+    text-align: center; /* Centra los botones */
+    margin-top: 20px;
+}
+
+/* Estilos responsivos para pantallas pequeñas */
+@media (max-width: 600px) {
+    .ticket {
+        max-width: 90%; /* Hacer que la factura ocupe más espacio en pantallas pequeñas */
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    /* Los botones deben ocupar el 100% del ancho en pantallas pequeñas */
+    #botonDescarga, #botonVolver {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    /* Reducción del tamaño de la fuente en la tabla para pantallas pequeñas */
+    #tablaFactura th, #tablaFactura td {
+        font-size: 1em;
+    }
+}

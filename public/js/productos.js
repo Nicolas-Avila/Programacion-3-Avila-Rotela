@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const nombreUsuario = localStorage.getItem('nombreUsuario');
+    const nombreUsuarioSpan = document.getElementById('nombreUsuarioBienvenida');
+
+    if (nombreUsuario && nombreUsuarioSpan) {
+        nombreUsuarioSpan.textContent = nombreUsuario;
+    } else {
+        nombreUsuarioSpan.textContent = "Visitante";
+    }
     // Recuperar el carrito desde localStorage (si existe)
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
@@ -20,10 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
                 
-                // Crear el botón de eliminar
+                // Crear el botón de eliminar 1 unidad con ícono de menos
                 const botonEliminar = document.createElement('button');
                 botonEliminar.classList.add('btn', 'btn-danger', 'btn-sm');
-                botonEliminar.textContent = 'Eliminar 1';
+                botonEliminar.innerHTML = '<i class="fas fa-minus"></i>';  // Ícono de menos
                 
                 // Asignar el evento de clic para eliminar 1 unidad del producto
                 botonEliminar.addEventListener('click', () => {
@@ -32,10 +40,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 itemCarrito.appendChild(botonEliminar);
 
-                // Agregar el botón "Agregar al carrito" (en caso de que quieras permitir agregar más unidades)
+                // Crear el botón de eliminar completamente el producto con ícono de tacho de basura
+                const botonEliminarCompleto = document.createElement('button');
+                botonEliminarCompleto.classList.add('btn', 'btn-warning', 'btn-sm');
+                botonEliminarCompleto.innerHTML = '<i class="fas fa-trash"></i>';  // Ícono de tacho de basura
+                
+                // Asignar el evento de clic para eliminar el producto completo del carrito
+                botonEliminarCompleto.addEventListener('click', () => {
+                    eliminarProductoCompleto(index);
+                });
+
+                itemCarrito.appendChild(botonEliminarCompleto);
+
+                // Crear el botón de agregar +1 con ícono de más
                 const botonAgregar = document.createElement('button');
                 botonAgregar.classList.add('btn', 'btn-primary', 'btn-sm');
-                botonAgregar.textContent = 'Agregar +1';
+                botonAgregar.innerHTML = '<i class="fas fa-plus"></i>';  // Ícono de más
                 
                 // Asignar el evento de clic para aumentar la cantidad del producto
                 botonAgregar.addEventListener('click', () => {
@@ -90,6 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
         actualizarCarrito();
     }
 
+    // Función para eliminar completamente el producto del carrito
+    function eliminarProductoCompleto(index) {
+        carrito.splice(index, 1);
+        actualizarCarrito();
+    }
+
     // Asignar eventos a los botones de agregar al carrito
     const botonesAgregar = document.querySelectorAll('.agregar');
     botonesAgregar.forEach(boton => {
@@ -101,31 +127,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Función para almacenar la información de pago en localStorage y redirigir a la página de factura
-    const formularioPago = document.getElementById('formularioPago');
-    formularioPago.addEventListener('submit', (e) => {
-        e.preventDefault();
+// Función para almacenar la información de pago y enviarla a la ruta de la factura
+const formularioPago = document.getElementById('formularioPago');
+formularioPago.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-        // Obtener los valores del formulario
-        const nombre = document.getElementById('nombre').value;
-        const apellido = document.getElementById('Apellido').value;
-        const dni = document.getElementById('dni').value;
-        const telefono = document.getElementById('telefono').value;
+    // Obtener los valores del formulario (si el formulario es usado)
+    const nombre = document.getElementById('nombre').value;
+    const apellido = document.getElementById('Apellido').value;
+    const dni = document.getElementById('dni').value;
+    const telefono = document.getElementById('telefono').value;
 
-        localStorage.setItem('nombre', nombre);
-        localStorage.setItem('apellido', apellido);
-        localStorage.setItem('dni', dni);
-        localStorage.setItem('telefono', telefono);
+    // Guardar la información en el localStorage
+    localStorage.setItem('nombre', nombre);
+    localStorage.setItem('apellido', apellido);
+    localStorage.setItem('dni', dni);
+    localStorage.setItem('telefono', telefono);
 
-        window.location.href = '/factura'; 
-    });
+    // Redirigir a la página de la factura
+    window.location.href = '/factura';
+});
 
     document.getElementById("cerrarSesionBtn").addEventListener("click", function() {
         localStorage.clear(); 
         window.location.href = "/"; 
     });
-    
-    
+
+
 
     actualizarCarrito();
 });
@@ -135,6 +163,12 @@ function EvaluarAdmin() {
 }
 
 function EvaluarUsuario() {
-    window.location.href = "/tienda";
-}
+        const nombre = document.getElementById("nombreUsuario").value;
+        if (nombre) {
+            localStorage.setItem('nombreUsuario', nombre);
+            window.location.href = "/tienda";
+        } else {
+            alert("Por favor ingresa tu nombre.");
+        }
 
+}

@@ -97,7 +97,7 @@
             .update(inputPassword)
             .digest("hex");
         
-        return inputHash === storedHash; // Devuelve true si el hash coincide
+        return inputHash === storedHash;
     };
     
     router.post("/login", async (req, res) => {

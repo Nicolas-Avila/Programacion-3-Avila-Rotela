@@ -51,5 +51,5 @@ async function EvaluarAdmin(event) {
 // Función para autocompletar los campos de usuario y contraseña
 document.getElementById("llenarDatos").addEventListener("click", () => {
     document.getElementById("nombreUsuario").value = "nicolas";
-    document.getElementById("passUsuario").value = "1234";
+    document.getElementById("passUsuario").value = "123456";
 });
