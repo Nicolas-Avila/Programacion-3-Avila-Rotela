@@ -1,17 +1,16 @@
 // Espera a que el DOM esté completamente cargado antes de ejecutar el script
 document.addEventListener("DOMContentLoaded", () => {
-    const adminForm = document.getElementById("adminForm");  // Formulario para crear administradores
-    const tableBody = document.getElementById("adminTable"); // Cuerpo de la tabla que muestra los administradores
+    const adminForm = document.getElementById("adminForm");
+    const tableBody = document.getElementById("adminTable");
 
     // Función para cargar la lista de administradores desde el servidor
     async function cargarAdmin() {
         try {
             const response = await fetch("http://localhost:3000/admin/");
-            const admin = await response.json();  // Obtener los datos en formato JSON
+            const admin = await response.json(); 
             
-            console.log(admin);  // Verificar la respuesta
+            console.log(admin);
     
-            // Verificar que `admin` sea un array antes de intentar usar forEach
             if (!Array.isArray(admin)) {
                 throw new Error("La respuesta del servidor no es un array");
             }
@@ -123,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             await cargarAdmin();
-
             // Cerrar el modal de edición
             const editModalElement = document.getElementById("editarAdminModal");
             const modal = bootstrap.Modal.getInstance(editModalElement);
