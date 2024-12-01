@@ -42,6 +42,7 @@ require("dotenv").config();
 const sequelize = require("../db/sequelize");
 const ProductoSequelize = require("../entity/producto.entity.js");
 const AdminSequelize = require("../entity/admin.entity.js");
+const VentasSequelize = require("../entity/ventas.entity.js");
 
 // Sincronizar la base de datos
 sequelize.sync()
@@ -63,6 +64,9 @@ app.use("/productos", productosRoutes);
 // Importación de rutas de admin
 const adminRoutes = require("../routes/admin.routes.js");
 app.use("/admin", adminRoutes);
+
+const ventasRoutes = require("../routes/ventas.routes.js");
+app.use("/ventas", ventasRoutes);
 
 app.get('/', (req, res) => {
     res.render('index', { publicUrl: '/public' });

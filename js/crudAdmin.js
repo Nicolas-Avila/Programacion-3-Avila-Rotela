@@ -157,6 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+    document.getElementById("descargarVentasBtn").addEventListener("click", () => {
+        // Realizar una solicitud GET para descargar el archivo de ventas
+        window.location.href = "http://localhost:3000/ventas/descargar";
+    });
 
     // Cargar la lista de administradores al cargar la página
     cargarAdmin();
