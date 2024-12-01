@@ -105,6 +105,12 @@ body {
     padding: 15px;
 }
 
+.card-img-top {
+    width: 100%;
+    height: 250px; 
+    object-fit: cover; 
+}
+
 .precio {
     position: absolute;
     bottom: 10px;
@@ -309,4 +315,97 @@ body {
         transform: translate(0);
     }
 }
+
+/* Estilo para el contenedor del carrito */
+#carrito {
+    display: flex;
+    flex-direction: column; /* Cambié a columna para que los productos se apilen verticalmente */
+    align-items: flex-start;
+    padding: 10px;
+}
+
+/* Estilo para cada item del carrito */
+.carrito-item {
+    display: flex;
+    justify-content: space-between; /* Alinea los productos y su información */
+    align-items: center;
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Información del producto dentro del carrito */
+.carrito-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Botón eliminar */
+.carrito-item button {
+    margin-left: 10px;
+}
+
+/* Estilo para el total */
+.carrito-total {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Estilo para el botón de finalizar compra */
+#carrito button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#carrito button:hover {
+    background-color: #218838;
+}
+
+.titulo-seccion {
+    position: relative;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    padding: 15px 20px;
+    margin: 30px 0;
+    background-color: #2b2d42; /* Fondo de la sección */
+    display: inline-block;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.titulo-seccion::before,
+.titulo-seccion::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 2px;
+    background-color: #ff6f61; /* Color del separador */
+    transform: translateY(-50%);
+}
+
+.titulo-seccion::before {
+    left: 0;
+}
+
+.titulo-seccion::after {
+    right: 0;
+}
+
+.titulo-seccion span {
+    position: relative;
+    z-index: 1;
+    background-color: #2b2d42; /* Fondo de la sección, igual al del título */
+    padding: 0 15px;
+}
+
 

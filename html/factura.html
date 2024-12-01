@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../public//img/icons8-favicon-64.png" type="image/x-icon">
     <title>Factura</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/factura.css">
+    <link rel="stylesheet" href="/css/factura.css">
 </head>
-
 <body>
     <div class="ticket" id="factura">
-        <h2 class="text-center">Factura</h2>
+        <h2 class="text-center">Factura que no tengo que tenes en cuenta para nada</h2>
         <div class="mb-4">
             <h5>Datos de facturación</h5>
             <p><strong>Nombre:</strong> <span id="nombre"></span></p>
             <p><strong>Apellido:</strong> <span id="apellido"></span></p>
             <p><strong>DNI:</strong> <span id="dni"></span></p>
             <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
-
         </div>
+
         <h3 class="mt-1">Detalle de la compra</h3>
         <div id="productos-carrito"></div>
         <div class="total mt-3" id="total"></div>
     </div>
     <center>
-        <button id="boton" onclick="guardar()" class="btn btn-success">
-            Botón mágico
+        <button id="botonDescarga" onclick="guardar()" class="btn btn-success">
+            Descargar factura
         </button>
     </center>
-    <script src="../node_modules/jspdf/dist/jspdf.umd.js"></script>
-    <script src="../js/factura.js"></script>
-    <script src="../node_modules/html2canvas/dist/html2canvas.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="/js/factura.js"></script>
 </body>
-
 </html>
