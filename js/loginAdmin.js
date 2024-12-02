@@ -1,4 +1,7 @@
+// ===========================
 // Función para evaluar el login del administrador
+// ===========================
+
 async function EvaluarAdmin(event) {
     event.preventDefault();
     console.log("La función EvaluarAdmin() se está ejecutando");
@@ -31,15 +34,12 @@ async function EvaluarAdmin(event) {
 
         if (result.success) {
             console.log("Autenticación exitosa, redirigiendo...");
-            // Redirigir a la página de administración si la autenticación es exitosa
             window.location.href = "../html/administrador.html";
         } else {
-            // Mostrar un mensaje de error si las credenciales son incorrectas
             mensajeHtml.style.display = "block";
             mensajeHtml.innerText = result.message || "Credenciales incorrectas.";
         }
     } catch (error) {
-        // Capturar y mostrar errores en la consola y en el elemento de mensaje
         console.error("Error en la autenticación:", error);
         mensajeHtml.style.display = "block";
         mensajeHtml.innerText = "Error en el servidor.";
@@ -48,7 +48,7 @@ async function EvaluarAdmin(event) {
     return false;
 }
 
-// Función para autocompletar los campos de usuario y contraseña
+// Asigna un evento al botón para llenar automáticamente los campos
 document.getElementById("llenarDatos").addEventListener("click", () => {
     document.getElementById("nombreUsuario").value = "nicolas";
     document.getElementById("passUsuario").value = "123456";

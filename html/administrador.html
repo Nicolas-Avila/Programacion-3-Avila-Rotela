@@ -2,189 +2,187 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../public/img/icons8-favicon-64.png" type="image/x-icon">
-    <title>Gestión de Productos</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../css/admin.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="../public/img/icons8-favicon-64.png" type="image/x-icon">
+  <title>Gestión de Productos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <h1>Bienvenido Administrador</h1>
-            <a href="http://localhost:3000/"><button class="btn btn-danger" id="principal">Cerrar Sesion</button></a>
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearModal">Crear un nuevo
-            producto</button>
-        <!-- Botón para abrir modal de crear administrador -->
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearAdminModal">Crear
-            Administrador</button>
-        <button class="btn btn-success" id="descargarVentasBtn">Descargar ventas</button>
-    </header>
-    <section>
-        <h2>Actualizar Catálogo</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Tipo</th>
-                    <th>Estado</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Los productos se cargarán aquí -->
-            </tbody>
-        </table>
-    </section>
+  <header>
+    <h1>Bienvenido Administrador</h1>
+    <a href="http://localhost:3000/">
+      <button class="btn btn-danger" id="principal">Cerrar Sesión</button>
+    </a>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearModal">Crear un nuevo producto</button>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearAdminModal">Crear Administrador</button>
+    <button class="btn btn-success" id="descargarVentasBtn">Descargar ventas</button>
+  </header>
 
-    <section>
-        <h2>Administradores</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Contraseña</th>
-                    <th>Accion</th>
-                </tr>
-            </thead>
-            <tbody id="adminTable">
-                <!-- Los admin se cargarán aquí -->
-            </tbody>
-        </table>
-    </section>
+  <!-- Tabla para la gestión de productos -->
+  <section>
+    <h2>Actualizar Catálogo</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Imagen</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí se cargan dinámicamente los productos -->
+      </tbody>
+    </table>
+  </section>
 
-    <!-- Modales para Crear y Editar Producto -->
-    <!-- Crear Modal -->
-    <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="crearModalLabel">Crear Nuevo Producto</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="productForm" method="POST" action="/productos/crear" enctype="multipart/form-data">
-                        <label for="nombreProducto">Nombre del Producto:</label>
-                        <input type="text" id="nombreProducto" name="nombreProducto" class="form-control" required>
-                    
-                        <label for="descripcionProducto">Descripción:</label>
-                        <input type="text" id="descripcionProducto" name="descripcionProducto" class="form-control" required>
-                    
-                        <label for="imgSrc">Seleccionar Imagen:</label>
-                        <input type="file" id="imgSrc" name="imgSrc" class="form-control" accept="image/*" required>
+  <!-- Tabla para la gestión de administradores -->
+  <section>
+    <h2>Administradores</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Contraseña</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody id="adminTable">
+        <!-- Aquí se cargan dinámicamente los administradores -->
+      </tbody>
+    </table>
+  </section>
 
-                    
-                        <label for="tipo">Categoría:</label>
-                        <select id="tipo" name="tipo" class="form-control" required>
-                            <option value="software">software</option>
-                            <option value="hardware">hardware</option>
-                        </select>
-                    
-                        <label for="precioProducto">Precio:</label>
-                        <input type="number" id="precioProducto" name="precioProducto" class="form-control" required>
-                    
-                        <button type="submit" class="btn btn-primary mt-3">Crear Producto</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Editar Modal -->
-    <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="editarModalLabel">Editar Producto</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editProductForm" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" id="editProductId">
-                        <label for="editNombreProducto">Nombre del Producto:</label>
-                        <input type="text" id="editNombreProducto" class="form-control" required>
-
-                        <label for="editDescripcionProducto">Descripción:</label>
-                        <input type="text" id="editDescripcionProducto" class="form-control" required>
-
-                        <label for="editImgSrc">Seleccionar Imagen:</label>
-                        <input type="file" id="editImgSrc" name="editImgSrc" class="form-control" accept="image/*" required>
-
-
-                        <label for="editTipo">Categoría:</label>
-                        <select id="editTipo" class="form-control" required>
-                            <option value="software">software</option>
-                            <option value="hardware">hardware</option>
-                        </select>
-
-                        <label for="editPrecioProducto">Precio:</label>
-                        <input type="number" id="editPrecioProducto" class="form-control" required>
-
-                        <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Crear Administrador -->
-    <div class="modal fade" id="crearAdminModal" tabindex="-1" aria-labelledby="crearAdminModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="crearAdminModalLabel">Crear Nuevo Administrador</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="adminForm">
-                        <label for="adminNombre">Nombre del Administrador:</label>
-                        <input type="text" id="adminNombre" class="form-control" required>
-
-                        <label for="adminPassword">Contraseña:</label>
-                        <input type="password" id="adminPassword" class="form-control" required>
-
-                        <button type="submit" id="adminSubmit" class="btn btn-primary mt-3">Crear Administrador</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!-- Modal Editar Administrador -->
-<div class="modal fade" id="editarAdminModal" tabindex="-1" aria-labelledby="editarAdminModalLabel" aria-hidden="true">
+  <!-- Modal para crear un nuevo producto -->
+  <div class="modal fade" id="crearModal" tabindex="-1" aria-labelledby="crearModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editarAdminModalLabel">Editar Administrador</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="editAdminForm">
-                    <input type="hidden" id="editAdminId">
-                    <label for="editAdminNombre">Nombre del Administrador:</label>
-                    <input type="text" id="editAdminNombre" class="form-control" required>
-
-                    <label for="editAdminPassword">Contraseña:</label>
-                    <input type="password" id="editAdminPassword" class="form-control" required>
-
-                    <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
-                </form>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="crearModalLabel">Crear Nuevo Producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <form id="productForm" method="POST" action="/productos/crear" enctype="multipart/form-data">
+            <label for="nombreProducto">Nombre del Producto:</label>
+            <input type="text" id="nombreProducto" name="nombreProducto" class="form-control" required>
+
+            <label for="descripcionProducto">Descripción:</label>
+            <input type="text" id="descripcionProducto" name="descripcionProducto" class="form-control" required>
+
+            <label for="imgSrc">Seleccionar Imagen:</label>
+            <input type="file" id="imgSrc" name="imgSrc" class="form-control" accept="image/*" required>
+
+            <label for="tipo">Categoría:</label>
+            <select id="tipo" name="tipo" class="form-control" required>
+              <option value="software">software</option>
+              <option value="hardware">hardware</option>
+            </select>
+
+            <label for="precioProducto">Precio:</label>
+            <input type="number" id="precioProducto" name="precioProducto" class="form-control" required>
+
+            <button type="submit" class="btn btn-primary mt-3">Crear Producto</button>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/crudAdmin.js"></script>
-    <script src="../js/crudProducto.js"></script>
+  </div>
+
+  <!-- Modal para editar un producto existente -->
+  <div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="editarModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editarModalLabel">Editar Producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editProductForm" method="POST" enctype="multipart/form-data">
+            <input type="hidden" id="editProductId">
+            <label for="editNombreProducto">Nombre del Producto:</label>
+            <input type="text" id="editNombreProducto" class="form-control" required>
+
+            <label for="editDescripcionProducto">Descripción:</label>
+            <input type="text" id="editDescripcionProducto" class="form-control" required>
+
+            <label for="editImgSrc">Seleccionar Imagen:</label>
+            <input type="file" id="editImgSrc" name="editImgSrc" class="form-control" accept="image/*" required>
+
+            <label for="editTipo">Categoría:</label>
+            <select id="editTipo" class="form-control" required>
+              <option value="software">software</option>
+              <option value="hardware">hardware</option>
+            </select>
+
+            <label for="editPrecioProducto">Precio:</label>
+            <input type="number" id="editPrecioProducto" class="form-control" required>
+
+            <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para crear un administrador -->
+  <div class="modal fade" id="crearAdminModal" tabindex="-1" aria-labelledby="crearAdminModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="crearAdminModalLabel">Crear Nuevo Administrador</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="adminForm">
+            <label for="adminNombre">Nombre del Administrador:</label>
+            <input type="text" id="adminNombre" class="form-control" required>
+
+            <label for="adminPassword">Contraseña:</label>
+            <input type="password" id="adminPassword" class="form-control" required>
+
+            <button type="submit" id="adminSubmit" class="btn btn-primary mt-3">Crear Administrador</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para editar un administrador existente -->
+  <div class="modal fade" id="editarAdminModal" tabindex="-1" aria-labelledby="editarAdminModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editarAdminModalLabel">Editar Administrador</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editAdminForm">
+            <input type="hidden" id="editAdminId">
+            <label for="editAdminNombre">Nombre del Administrador:</label>
+            <input type="text" id="editAdminNombre" class="form-control" required>
+
+            <label for="editAdminPassword">Contraseña:</label>
+            <input type="password" id="editAdminPassword" class="form-control" required>
+
+            <button type="submit" class="btn btn-primary mt-3">Guardar Cambios</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/crudAdmin.js"></script>
+  <script src="../js/crudProducto.js"></script>
 </body>
 
 </html>

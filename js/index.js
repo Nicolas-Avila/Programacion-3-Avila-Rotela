@@ -2,25 +2,16 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
-// ===========================
-// Configuración de EJS
-// ===========================
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../html')));
 app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
 
-
-// ===========================
-// Configuración de Middleware
-// ===========================
-
-// Middleware para parsear JSON
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-// Middleware para permitir CORS
+// Middleware para habilitar CORS
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
@@ -31,9 +22,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// ===========================
-// Configuración de Variables de Entorno
-// ===========================
 require("dotenv").config();
 
 // ===========================
@@ -44,7 +32,7 @@ const ProductoSequelize = require("../entity/producto.entity.js");
 const AdminSequelize = require("../entity/admin.entity.js");
 const VentasSequelize = require("../entity/ventas.entity.js");
 
-// Sincronizar la base de datos
+// Sincroniza las tablas en la base de datos
 sequelize.sync()
     .then(() => {
         console.log("¡Tablas sincronizadas correctamente!");
@@ -53,34 +41,31 @@ sequelize.sync()
         console.error("Error al sincronizar las tablas:", error);
     });
 
-// ===========================
-// Definición de Rutas
-// ===========================
-
-// Importación de rutas de productos
+// Rutas relacionadas con los productos
 const productosRoutes = require("../routes/producto.routes.js");
 app.use("/productos", productosRoutes);
 
-// Importación de rutas de admin
+// Rutas relacionadas con los administradores
 const adminRoutes = require("../routes/admin.routes.js");
 app.use("/admin", adminRoutes);
 
+// Rutas relacionadas con las ventas
 const ventasRoutes = require("../routes/ventas.routes.js");
 app.use("/ventas", ventasRoutes);
 
+// Ruta raíz que renderiza la página principal
 app.get('/', (req, res) => {
     res.render('index', { publicUrl: '/public' });
 });
 
-// Ruta principal que renderiza la vista con los productos
+// Ruta que renderiza la tienda, clasificando los productos por tipo
 app.get("/tienda", (req, res) => {
     ProductoSequelize.findAll({ where: { eliminado: false } })
         .then(productos => {
-            // Filtrar productos por tipo
+            // Clasifica los productos por tipo
             const hardware = productos.filter(producto => producto.tipo === "hardware");
             const software = productos.filter(producto => producto.tipo === "software");
 
-            // Renderizar la vista con los productos clasificados
             res.render("tienda", { hardware, software });
         })
         .catch(error => {
@@ -89,25 +74,23 @@ app.get("/tienda", (req, res) => {
         });
 });
 
+// Ruta para generar una factura desde un formulario
 app.post('/factura', (req, res) => {
     const { nombre, apellido, dni, telefono } = req.body;
     res.render('factura', { nombre, apellido, dni, telefono });
 });
+
+// Ruta para mostrar la factura con datos pasados por query params
 app.get('/factura', (req, res) => {
-    // Recuperar datos del cliente y del carrito
     const nombre = req.query.nombre || 'Sin nombre';
     const apellido = req.query.apellido || 'Sin apellido';
     const dni = req.query.dni || 'Sin DNI';
     const telefono = req.query.telefono || 'Sin teléfono';
-    
-    // Renderizar la vista EJS pasando los datos
+
     res.render('factura', { nombre, apellido, dni, telefono });
 });
 
-
-// ===========================
-// Inicio del Servidor
-// ===========================
+// Inicia el servidor en el puerto especificado en las variables de entorno
 app.listen(process.env.PORT, () => {
     console.log("Inicio la app en el puerto", process.env.PORT);
     console.log("Contraseña de MySQL:", process.env.MYSQL_PASSWORD);
